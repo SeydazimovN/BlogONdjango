@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+
+<html>
+
+	<body>
+		<h1> Create is here! </h1>
+		<form method = 'POST' action = '' enctype = "multipart/form-data"> 
+			{% csrf_token %}
+			{{ form.as_p }}
+			<input type = 'submit' value = 'Create post'>
+		</form>	
+	</body>
+
+</html>

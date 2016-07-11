@@ -1,0 +1,82 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title> {% block head_title %} Site #1  {% endblock head_title %} </title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+	<link rel = 'stylesheet' href = "{% static "css/base.css" %}" />
+	<style>
+		{% block style %}
+		{% endblock style %}
+	</style>
+</head>
+
+<body>
+	{% include "messages.html" %}
+	<div class = "container">
+		{% block content %}
+			<h1> All blogs! </h1>
+			<button type="button" class="btn btn-default navbar-btn">
+				<a href = "http://127.0.0.1:8000/posts/create/"> Create new blog </a>
+			</button>
+			{% for obj in queryset %}
+				<div class="row">
+					<div class="col-sm-4 col-md-8">
+						<div class = "post_box">
+						    <div class="thumbnail">
+						      {% if obj.image %}
+						   	  <img src="{{ obj.image.url }}" class = "img-responsive" />		
+						      {% endif %}
+						      <div class="caption">
+						        <h1> 
+						        	<a href = '{{ obj.get_absolute_url }}'> {{ obj.title }} </a>
+						        </h1>
+						        
+						        <h3>number:<span class="label label-default">{{ obj.id }}</span></h3>   
+										
+								<p> {{ obj.content }} </p>
+						        <p><a href='{{ obj.get_absolute_url }}' class="btn btn-primary" role="button">open</a> <a href='{{ obj.get_absolute_url }}edit' class="btn btn-default" role="button">edit</a></p>
+						      </div>
+						    </div>
+						</div>
+				  </div>
+				</div>				 
+			{% endfor %}
+			<nav>
+				<ul class="pager">
+					<div class="pagination">
+					    <span class="step-links">
+					        {% if queryset.has_previous %}
+					            <li><a href="?{{ page_number }}={{ queryset.previous_page_number }}">Previous</a></li>
+					        {% endif %}
+
+					        <span class="current">
+					            Page {{ queryset.number }} of {{ queryset.paginator.num_pages }}.
+					        </span>
+
+					        {% if queryset.has_next %}
+					            <li><a href="?{{ page_number }}={{ queryset.next_page_number }}">Next</a></li>
+					        {% endif %}
+					    </span>
+					</div>				
+				</ul>
+			</nav>			
+		{% endblock %}
+	</div>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous">
+	</script>
+</body>
+
+</html>
+
+

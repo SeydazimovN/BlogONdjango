@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block style %}
+	p {
+		color: blue;
+	}
+{% endblock style %}
+
+
+{% block head_title %}
+	{{example.title }} | {{block.super}}
+{% endblock head_title%}
+
+{% block content%}	
+	<button type="button" class="btn btn-default navbar-btn">
+			<a href = "http://127.0.0.1:8000/posts/"> Main page </a>
+	</button>
+	{% if example.image %}
+	<img src="{{ example.image.url }}" class = "img-responsive" />
+	{% endif %}
+	<h2> {{ example.title }} <small> {{ example.timestamp }} </small> </h2> 		
+	<p> {{ example.content }} </p> 
+	{{ request.build_absolute_uri }}
+	<!-- Share on Facebook -->
+	<a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+		Facebook
+	</a>
+	<!-- Share on Twitter -->
+	<a href="https://twitter.com/home?status={{share_link}}%20{{ request.build_absolute_uri }}">
+		Twitter
+	</a>
+	<!-- google plus -->
+	<a href='https://plus.google.com/share?url=http://codingforentrepreneurs.com'> GooglePlus </a>
+	<!-- reddit -->
+	<a href="http://www.reddit.com/submit?url=http://swiftforentrepreneurs.com/&title=Unlock%20to%20Learn%20Swift%20for%20Free!%20By%20Swift%20for%20Entrepreneurs.%20Made%20for%20Non%20Techincals.">Reddit</a>
+
+
+	<center> {{ example.id }} </center>
+
+{% endblock content%}	
+
+
+	
